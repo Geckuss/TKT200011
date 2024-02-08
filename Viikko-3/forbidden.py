@@ -1,23 +1,20 @@
 def count(s):
-    # Laske kaikki mahdolliset osajonot
-    total = len(s) * (len(s) + 1) // 2
+    # Alustetaan muuttujat
+    total = 0
+    consecutive_non_a = 0
 
-    # Alusta ryhmän pituus
-    group_length = 0
-    # Käy läpi merkkijono
-    for i in range(len(s)):
-        # Jos merkki on a, kasvata ryhmän pituutta
-        if s[i] == 'a':
-            group_length += 1
+    # Käydään läpi merkkijono
+    for char in s:
+        if char == 'a':
+            # Jos merkki on 'a', lisätään osajonojen määrä kokonaismäärään
+            total += (consecutive_non_a * (consecutive_non_a + 1)) // 2
+            consecutive_non_a = 0
         else:
-            # Muuten vähennä ryhmän tuottamat osajonot ja alusta ryhmän pituus
-            total -= group_length * (group_length + 1) // 2
-            group_length = 0
-    # Vähennä viimeisen ryhmän tuottamat osajonot
-    total -= group_length * (group_length + 1) // 2
+            # Jos merkki ei ole 'a', kasvatetaan osajonojen määrää
+            consecutive_non_a += 1
 
-    # Lisää osajonot, jotka päättyvät a-merkkiin
-    total += group_length * (group_length + 1) // 2
+    # Lisätään loput osajonot kokonaismäärään
+    total += (consecutive_non_a * (consecutive_non_a + 1)) // 2
 
     return total
 
@@ -26,4 +23,3 @@ if __name__ == "__main__":
     print(count("saippuakauppias")) # 23
     print(count("x")) # 1
     print(count("aybabtu")) # 9
-    print(count("wvlmmzxzjvaltdohf")) # 76

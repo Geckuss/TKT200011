@@ -1,12 +1,11 @@
 def find(t):
-    # Alusta luku nollaksi
-    number = 0
-    # Käy läpi lista
+    counts = {}
     for num in t:
-        # Käytä XOR-operaatiota
-        number ^= num
-    # Palauta luku
-    return number
+        counts[num] = counts.get(num, 0) + 1
+
+    for num, count in counts.items():
+        if count == 1:
+            return num
 
 if __name__ == "__main__":
     print(find([1,1,2,1])) # 2
